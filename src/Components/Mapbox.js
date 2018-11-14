@@ -20,45 +20,6 @@ export default class Mapbox extends Component {
       center: [-73.865675, 40.8592951],
       zoom: 9
     });
-    // const query = this.props.geoFireRef.query({
-    //   center:this.map.getBounds(),
-    //   radius: 10
-    // })
-    //
-    // let point1 = this.map.getBounds();
-    // let point2 = this.map.getCenter();
-    // return
-    // this.map.on('load', ()=> {
-    //   this.props.points.forEach((el, i)=>{
-    //     // add each point source
-    //     this.map.addSource(el.g, {
-    //       "type": "geojson",
-    //       "data": {
-    //         "type": "FeatureCollection",
-    //         "features": [{
-    //           "type": "Feature",
-    //           "geometry": {
-    //             "type": "Point",
-    //             "coordinates": [el.l[1],el.l[0]]
-    //           }
-    //         }]
-    //       }
-    //     });
-    //
-    //     this.map.addLayer({
-    //       "id": el.g,
-    //       "type": "circle",
-    //       "source": el.g,
-    //       "paint": {
-    //         "circle-radius": 7,
-    //         "circle-color": el.color,
-    //         "circle-opacity": .4
-    //       }
-    //     })
-    //
-    //   });
-    //
-    // });
 
   }
 
