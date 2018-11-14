@@ -1,0 +1,73 @@
+// TODO: transition should be overlay gray first (no sliding down) then slide down
+.Form-wrapper
+  width: 100vw
+  height: 100vh
+  background-color: rgba(0,0,0,0)
+  top: -100%
+  transition: 400ms top
+  position: absolute
+  z-index: 2
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  overflow-y: scroll
+  -webkit-overflow-scrolling: touch
+  transition: 300ms top, 500ms background-color
+  &.active
+    top: 0
+    background-color: rgba(0,0,0,.7)
+  .Form
+    user-select: none
+    background-color: #f4f4f2
+    padding: 20px 30px 30px
+    min-width: 250px
+    min-height: 200px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    border-radius: 10px
+    .title
+      width: 100%
+      font-size: 1.5rem
+      text-align: center
+      &::after
+        content: ""
+        display: block
+        width: 80%
+        background-color: #d5d1ca
+        height: 1px
+        margin: 0 auto 7px
+    .input-wrapper
+      margin: 7px 0
+      .input
+        cursor: pointer
+        border: 1px solid #d5d1ca
+        border-radius: 15px
+        width: 100%
+        padding: 5px 23px
+        font-size: 1.2rem
+        margin: 5px auto
+        display: flex
+        justify-content: center
+        align-items: center
+        transition: 300ms border-color
+        position: relative
+        &:hover
+          border-color: #b1ada8
+        .Color-Dot
+          margin: 0 7px 0 0
+        // .rc-trigger-popup
+        //   z-index: 2
+        // .rc-color-picker-panel.close
+        //   display: none
+        // .rc-color-picker-panel.open
+        //   display: block
+        //   position: absolute
+        //   bottom: 50px
+    .Button
+      margin: 3px
+      // display: block
+.rc-trigger-popup
+  z-index: 2
