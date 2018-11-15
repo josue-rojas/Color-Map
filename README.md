@@ -12,8 +12,7 @@ This project uses react.js, mapbox, and firebase.
 #### TODO:
 - validation on firebase for data (database.rules.json)
 - mapbox
-  - add listener for change
-  - remove listeners for points off map
+  - style points to zoom out with map
 - geofire: upload changes to repo (maybe fork original and do changes to that one)
 - clean files (comments and console logs and fix warnings)
 - style footer
