@@ -32,9 +32,9 @@ export default class Mapbox extends Component {
     if(!firebaseRef || !geoFireRef || !GeoFire || !this.map) return
 
     // get the points of interest (center and a corner is fine)
-    const center = this.map.getCenter();
-    const corner = this.map.getBounds()._ne;
-    const distance = GeoFire.distance([center.lat, center.lng], [corner.lat, corner.lng]);
+    let center = this.map.getCenter();
+    let corner = this.map.getBounds()._ne;
+    let distance = GeoFire.distance([center.lat, center.lng], [corner.lat, corner.lng]);
     // make the query
     const query = geoFireRef.query({
       center: [center.lat, center.lng],
@@ -44,11 +44,7 @@ export default class Mapbox extends Component {
     // then finally check the map is loaded and add each point to the map
     this.map.on('load', ()=> {
       query.on("key_entered", (key, location, distance, customData)=>{
-        // if(this.map.getLayer(key)){
-        //   this.map.removeLayer(key);
-        //   this.map.removeSource(key)
-        // }
-        // TODO: should not remove source since it is the same
+        // console.log('hello');
         this.map.addSource(key, {
           "type": "geojson",
           "data": {
@@ -76,6 +72,7 @@ export default class Mapbox extends Component {
 
         // ummm the only thing changing should be the color if not then later add error checking
         firebaseRef.child(key).on('child_changed', (a)=>{
+          // console.log('hello')
           this.map.removeLayer(key);
           this.map.addLayer({
             "id": key,
@@ -88,63 +85,26 @@ export default class Mapbox extends Component {
             }
           });
         });
-        // firebaseRef.child(key).on('value', (a)=>{
-        //   const el = a.val();
-        //   if(this.map.getLayer(el.g)){
-        //     console.log('drop layer')
-        //     this.map.removeLayer(el.g);
-        //     this.map.removeSource(el.g);
-        //   }
-        //   // else{
-        //     // add each point source (only if the layer exist (key is the same as the coords))
-        //     // this.map.addSource(el.g, {
-        //     //   "type": "geojson",
-        //     //   "data": {
-        //     //     "type": "FeatureCollection",
-        //     //     "features": [{
-        //     //       "type": "Feature",
-        //     //       "geometry": {
-        //     //         "type": "Point",
-        //     //         "coordinates": [el.l[1],el.l[0]]
-        //     //       }
-        //     //     }]
-        //     //   }
-        //     // });
-        //   // }
-        //   this.map.addSource(el.g, {
-        //     "type": "geojson",
-        //     "data": {
-        //       "type": "FeatureCollection",
-        //       "features": [{
-        //         "type": "Feature",
-        //         "geometry": {
-        //           "type": "Point",
-        //           "coordinates": [el.l[1],el.l[0]]
-        //         }
-        //       }]
-        //     }
-        //   });
-        //
-        //   // then add the layer
-        //   this.map.addLayer({
-        //     "id": el.g,
-        //     "type": "circle",
-        //     "source": el.g,
-        //     "paint": {
-        //       "circle-radius": 7,
-        //       "circle-color": el.color,
-        //       "circle-opacity": .4
-        //     }
-        //   });
-        //
-        //   console.log('get second id'+el.g, this.map.getLayer(el.g));
-        //
-        //
-        // });
+
       });
-      // query.on('key_moved', (key, location, distance, customData)=>{
-      //   console.log('key moved')
-      // });
+
+      this.map.on('moveend', ()=>{
+        // console.log('moveend')
+        center = this.map.getCenter();
+        corner = this.map.getBounds()._ne;
+        distance = GeoFire.distance([center.lat, center.lng], [corner.lat, corner.lng]);
+        query.updateCriteria({
+          center: [center.lat, center.lng],
+          radius: distance
+        });
+      });
+
+      query.on('key_exited', (key, location, distance, customData)=>{
+        this.map.removeLayer(key);
+        this.map.removeSource(key);
+        firebaseRef.child(key).off('child_changed')
+        // console.log('key exite');
+      });
 
     });
   }
