@@ -5,7 +5,7 @@ import Form from './Components/Form';
 import Mapbox from './Components/Mapbox';
 import './Styles/App.css';
 import firebase from './firebase.js';
-// https://github.com/arnetuk/geofire-js this geofire has support for extra data set
+// https://github.com/arnetuk/geofire-js this geofire has support for extra data set (on the package.json i am using my fork cause this one was missing customdata return on event 'key_entered')
 import GeoFire from 'geofire';
 
 const firebaseRef = firebase.database().ref('points');
@@ -20,32 +20,16 @@ class App extends Component {
       firebaseRef: null,
       geoFire: null,
       GeoFire: GeoFire,
-      // points: [],
     }
     this.toggleForm = this.toggleForm.bind(this);
   }
 
   componentDidMount(){
-    // const firebaseRef = firebase.database().ref('points');
-    // const geoFireRef = new GeoFire(firebaseRef);
-
     this.setState({
       firebaseRef: firebaseRef,
       geoFireRef: geoFireRef,
       hasGeolocation: ("geolocation" in navigator),
     });
-
-    // const query = geoFireRef.query({
-    //   center:[40.8592951,-73.865675],
-    //   radius: 10
-    // })
-
-    // query.on("key_entered", (key, location)=>{
-    //   firebaseRef.child(key).once('value', (a)=>{
-    //     this.setState({points: [...this.state.points, a.val()]})
-    //     // console.log(a.val());
-    //   });
-    // });
 
   }
 
