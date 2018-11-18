@@ -19,6 +19,7 @@ This project uses react.js, mapbox, and firebase.
 - clean files (comments and console logs and fix warnings)
 - style footer
 - tidy up form.js especially the formInput function
+- form should store locally if geolocation has permission
 
 ##### Secrets
 Easily change your location using chrome: Open chrome and then open developer tools (Command+Option+I). Then click on developer menu (three dots button) and scroll to 'More Tools', there should be a 'Sensors' in the list. On 'Geolocation' change to 'Custom Location' and type in your desired coordinates.
