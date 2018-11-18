@@ -17,9 +17,17 @@ export default class Mapbox extends Component {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/withcheesepls/cjog1f02r1ds52so0vdjqibye',
-      center: [-73.865675, 40.8592951],
-      zoom: 9
+      zoom: 9,
+      center: window.location.hash.length === 0 ? [-73.9395,40.79] : [],
+      hash: true
     });
+    const userlocation = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    });
+    this.map.addControl(userlocation);
 
   }
 
@@ -45,6 +53,9 @@ export default class Mapbox extends Component {
     this.map.on('load', ()=> {
       query.on("key_entered", (key, location, distance, customData)=>{
         // console.log('hello');
+        // TODO: bug where source exist and crashes need to check if getSource and getLayer exist individually
+        console.log('key', key);
+        if(this.map.getSource(key) && this.map.getLayer(key)) return;
         this.map.addSource(key, {
           "type": "geojson",
           "data": {
@@ -72,7 +83,6 @@ export default class Mapbox extends Component {
 
         // ummm the only thing changing should be the color if not then later add error checking
         firebaseRef.child(key).on('child_changed', (a)=>{
-          // console.log('hello')
           this.map.removeLayer(key);
           this.map.addLayer({
             "id": key,
@@ -89,7 +99,6 @@ export default class Mapbox extends Component {
       });
 
       this.map.on('moveend', ()=>{
-        // console.log('moveend')
         center = this.map.getCenter();
         corner = this.map.getBounds()._ne;
         distance = GeoFire.distance([center.lat, center.lng], [corner.lat, corner.lng]);
@@ -100,10 +109,11 @@ export default class Mapbox extends Component {
       });
 
       query.on('key_exited', (key, location, distance, customData)=>{
+        // TODO: check the logic before returning
+        if(!this.map.getSource(key) && !this.map.getLayer(key)) return;
         this.map.removeLayer(key);
         this.map.removeSource(key);
         firebaseRef.child(key).off('child_changed')
-        // console.log('key exite');
       });
 
     });
