@@ -15,6 +15,7 @@ This project uses react.js, mapbox, and firebase.
   - style points to zoom out with map
   - style location button to match other buttons
   - geolocation point should be color choosen
+  - make functions to enable event listener functions and disable for easier use
 - geofire: upload changes to repo (maybe fork original and do changes to that one)
 - clean files (comments and console logs and fix warnings)
 - style footer
