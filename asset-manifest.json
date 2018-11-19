@@ -1,15 +1,15 @@
 {
-  "main.css": "/Color-Map/static/css/main.0634f5db.chunk.css",
-  "main.js": "/Color-Map/static/js/main.5005a22d.chunk.js",
-  "main.js.map": "/Color-Map/static/js/main.5005a22d.chunk.js.map",
+  "main.css": "/Color-Map/static/css/main.61a69afb.chunk.css",
+  "main.js": "/Color-Map/static/js/main.7e111378.chunk.js",
+  "main.js.map": "/Color-Map/static/js/main.7e111378.chunk.js.map",
   "static/css/1.512a5127.chunk.css": "/Color-Map/static/css/1.512a5127.chunk.css",
-  "static/js/1.f8372101.chunk.js": "/Color-Map/static/js/1.f8372101.chunk.js",
-  "static/js/1.f8372101.chunk.js.map": "/Color-Map/static/js/1.f8372101.chunk.js.map",
+  "static/js/1.48e33ba5.chunk.js": "/Color-Map/static/js/1.48e33ba5.chunk.js",
+  "static/js/1.48e33ba5.chunk.js.map": "/Color-Map/static/js/1.48e33ba5.chunk.js.map",
   "runtime~main.js": "/Color-Map/static/js/runtime~main.b1cdacf6.js",
   "runtime~main.js.map": "/Color-Map/static/js/runtime~main.b1cdacf6.js.map",
+  "static/css/main.61a69afb.chunk.css.map": "/Color-Map/static/css/main.61a69afb.chunk.css.map",
   "static/css/1.512a5127.chunk.css.map": "/Color-Map/static/css/1.512a5127.chunk.css.map",
-  "static/css/main.0634f5db.chunk.css.map": "/Color-Map/static/css/main.0634f5db.chunk.css.map",
   "index.html": "/Color-Map/index.html",
-  "precache-manifest.b869e8815165aae9cc523a66f35e903b.js": "/Color-Map/precache-manifest.b869e8815165aae9cc523a66f35e903b.js",
+  "precache-manifest.82de0ff78bd7e4daae487bcd1bc60a3b.js": "/Color-Map/precache-manifest.82de0ff78bd7e4daae487bcd1bc60a3b.js",
   "service-worker.js": "/Color-Map/service-worker.js"
 }
