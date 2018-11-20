@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
+import '../Styles/Map.css';
 
 // some helper functions to clean things out
 function getNewLayer(key, color) {
@@ -46,6 +47,7 @@ export default class Mapbox extends Component {
       trackUserLocation: true
     });
     this.map.addControl(userlocation);
+    console.log('component', this.mapContainer.getElementsByClassName('mapboxgl-canary'));
   }
 
   componentWillUnmount() {

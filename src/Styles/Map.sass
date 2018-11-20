@@ -1,0 +1,21 @@
+.mapboxgl-user-location-dot.mapboxgl-marker.mapboxgl-marker-anchor-center
+  &::before
+      background-color: inherit
+  &::after
+    border: 0
+
+// style for geolocate button 
+.mapboxgl-ctrl-top-right
+  .mapboxgl-ctrl.mapboxgl-ctrl-group
+    margin-top: 15px
+    border: 2px rgb(123, 123, 123) solid
+    border-radius: 15px
+    box-shadow: initial
+    &:hover
+      border-color: rgb(93, 93, 93)
+      .mapboxgl-ctrl-icon.mapboxgl-ctrl-geolocate
+        background-color: white
+    .mapboxgl-ctrl-icon.mapboxgl-ctrl-geolocate
+      height: 36px
+      width: 36px
+      border-color: rgb(123, 123, 123)
