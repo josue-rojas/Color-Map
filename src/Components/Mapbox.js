@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
+import '../Styles/Map.css';
 
+// some helper functions to clean things out
+function getNewLayer(key, color) {
+  return (
+    {
+      "id": key,
+      "type": "circle",
+      "source": key,
+      "paint": {
+        "circle-radius": {
+          "stops": [
+            [3, 2],
+            [9, 4]
+          ]
+        },
+        "circle-color": color,
+        "circle-opacity": .4
+      }
+    }
+  );
+}
 
 // initial code from https://blog.mapbox.com/mapbox-gl-js-react-764da6cc074a
 export default class Mapbox extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      points: [],
-    }
     this.makePoints = this.makePoints.bind(this);
   }
 
@@ -18,6 +36,7 @@ export default class Mapbox extends Component {
       container: this.mapContainer,
       style: 'mapbox://styles/withcheesepls/cjog1f02r1ds52so0vdjqibye',
       zoom: 9,
+      minZoom: 3,
       center: window.location.hash.length === 0 ? [-73.9395,40.79] : [],
       hash: true
     });
@@ -28,11 +47,12 @@ export default class Mapbox extends Component {
       trackUserLocation: true
     });
     this.map.addControl(userlocation);
-
+    console.log('component', this.mapContainer.getElementsByClassName('mapboxgl-canary'));
   }
 
   componentWillUnmount() {
     this.map.remove();
+    // TODO: also remove or stop query
   }
 
   makePoints(firebaseRef, geoFireRef, GeoFire){
@@ -52,9 +72,7 @@ export default class Mapbox extends Component {
     // then finally check the map is loaded and add each point to the map
     this.map.on('load', ()=> {
       query.on("key_entered", (key, location, distance, customData)=>{
-        // console.log('hello');
-        // TODO: bug where source exist and crashes need to check if getSource and getLayer exist individually
-        console.log('key', key);
+        // TODO: bug where source exist and crashes need to check if getSource and getLayer exist individually (same as line 111)
         if(this.map.getSource(key) && this.map.getLayer(key)) return;
         this.map.addSource(key, {
           "type": "geojson",
@@ -70,34 +88,16 @@ export default class Mapbox extends Component {
           }
         });
 
-        this.map.addLayer({
-          "id": key,
-          "type": "circle",
-          "source": key,
-          "paint": {
-            "circle-radius": 7,
-            "circle-color": customData.color,
-            "circle-opacity": .4
-          }
-        });
+        this.map.addLayer(getNewLayer(key, customData.color));
 
         // ummm the only thing changing should be the color if not then later add error checking
         firebaseRef.child(key).on('child_changed', (a)=>{
           this.map.removeLayer(key);
-          this.map.addLayer({
-            "id": key,
-            "type": "circle",
-            "source": key,
-            "paint": {
-              "circle-radius": 7,
-              "circle-color": a.val(),
-              "circle-opacity": .4
-            }
-          });
+          this.map.addLayer(getNewLayer(key, a.val()));
         });
-
       });
 
+      // update query to new location
       this.map.on('moveend', ()=>{
         center = this.map.getCenter();
         corner = this.map.getBounds()._ne;

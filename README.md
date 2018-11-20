@@ -12,12 +12,13 @@ This project uses react.js, mapbox, and firebase.
 #### TODO:
 - validation on firebase for data (database.rules.json)
 - mapbox
-  - style points to zoom out with map
-  - style location button to match other buttons
-  - geolocation point should be color choosen
+  - geolocation point should be color chosen
+  - make functions to enable event listener functions and disable for easier use
+  - figure out a way to change the geolocation color (probably using this https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver, but will be trouble some in react since this goes againts the style)
 - geofire: upload changes to repo (maybe fork original and do changes to that one)
 - clean files (comments and console logs and fix warnings)
 - style footer
+- form submit check if success
 - tidy up form.js especially the formInput function
 - form should store locally if geolocation has permission
 
