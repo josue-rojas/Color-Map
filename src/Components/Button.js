@@ -5,7 +5,7 @@ export default class Button extends Component {
   constructor(props){
     super(props);
     this.state = {
-      border: `2px solid ${this.props.color}`,
+      borderColor: this.props.color,
       color: this.props.color
     }
     this.hover = this.hover.bind(this);
@@ -14,13 +14,13 @@ export default class Button extends Component {
   hover(isHover){
     if(isHover){
       this.setState({
-        border: `2px solid ${this.props.hoverColor}`,
+        borderColor: this.props.hoverColor,
         color: this.props.hoverColor
       });
       return
     }
     this.setState({
-      border: `2px solid ${this.props.color}`,
+      borderColor: this.props.color,
       color: this.props.color
     });
   }
@@ -29,7 +29,7 @@ export default class Button extends Component {
 
     return(
       <div
-      className={`Button ${this.props.className}`}
+      className={`Button ${this.props.className || ''}`}
       onMouseEnter={()=>this.hover(true)}
       onMouseLeave={()=>this.hover(false)}
       style={this.state}

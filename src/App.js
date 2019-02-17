@@ -34,8 +34,8 @@ class App extends Component {
   }
 
   toggleForm(value){
-    let formActive = value ? value : !this.state.formActive;
-    this.setState({formActive: value})
+    let formActive = typeof value == 'boolean' ? value : !this.state.formActive;
+    this.setState({formActive: formActive})
   }
 
   render() {
